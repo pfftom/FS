@@ -1,0 +1,11 @@
+<%= form_for @league do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :sport %>
+    <%= form.select :sport, League::SPORTS %>
+  </div>
+  <%= form.submit "Create league" %>
+<% end %>
