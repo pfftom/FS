@@ -1,0 +1,47 @@
+<div id="player-tabs">
+  <ul>
+    <li><a href="#pos-qb">QB</a></li>
+    <li><a href="#pos-rb">RB</a></li>
+    <li><a href="#pos-wr">WR</a></li>
+    <li><a href="#pos-te">TE</a></li>
+    <li><a href="#pos-def">DEF</a></li>
+    <li><a href="#pos-k">K</a></li>
+  </ul>
+  <div id="pos-qb">
+    <%= render "table", page: "qb-page", group: @qbs, group_id: "qbs" %>
+    <div id="qb-page">
+      <%= paginate @qbs, remote: true, param_name: "qbs" %>
+    </div>
+  </div>
+  <div id="pos-rb">
+    <%= render "table", group: @rbs, group_id: "rbs" %>
+    <div id="rb-page">
+      <%= paginate @rbs, remote: true, param_name: "rbs" %>
+    </div>
+  </div>
+  <div id="pos-wr">
+    <%= render "table", group: @wrs, group_id: "wrs" %>
+    <div id="wr-page">
+      <%= paginate @wrs, remote: true, param_name: "wrs"%>
+    </div>
+  </div>
+  <div id="pos-te">
+    <%= render "table", group: @tes, group_id: "tes" %>
+    <div id="te-page">
+      <%= paginate @tes, remote: true, param_name: "tes" %>
+    </div>
+  </div>
+  <div id="pos-def">
+    <%= render "table", group: @defs, group_id: "defs" %>
+    <div id="def-page">
+      <%= paginate @defs, remote: true, param_name: "defs" %>
+    </div>
+  </div>
+  <div id="pos-k">
+    <%= render "table", group: @ks, group_id: "ks" %>
+    <div id="k-page">
+      <%= paginate @ks, remote: true, param_name: "ks" %>
+    </div>
+  </div>
+</div>
+<%= link_to image_tag("yahoo.png"), "http://sports.yahoo.com/fantasy" %>

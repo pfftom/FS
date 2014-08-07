@@ -1,0 +1,9 @@
+<tr>
+  <td><%= image_tag player.avatar_url %></td>
+  <td><%= player.name %></td>
+  <td><%= player.position %></td>
+  <td><%= player.team %></td>
+  <% player.position_stats.each do |stat| %>
+    <td><%= stat.value %></td>
+  <% end %>
+</tr>

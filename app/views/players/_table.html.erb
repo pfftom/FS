@@ -1,0 +1,13 @@
+<table>
+  <thead>
+    <tr>
+      <%= render "table_headers" %>
+      <% group[0].position_stats.each do |stat| %>
+        <th><%= stat.name %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody id="<%= group_id %>">
+    <%= render partial: "player", collection: group, as: :player %>
+  </tbody>
+</table>
