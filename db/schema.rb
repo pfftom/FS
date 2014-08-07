@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140806141335) do
+ActiveRecord::Schema.define(version: 20140807144648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,22 @@ ActiveRecord::Schema.define(version: 20140806141335) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
+
+  create_table "stat_categories", force: true do |t|
+    t.integer  "stat_id",    null: false
+    t.string   "name",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stats", force: true do |t|
+    t.integer "value",         null: false
+    t.integer "stat_id",       null: false
+    t.string  "name",          null: false
+    t.integer "nfl_player_id", null: false
+  end
+
+  add_index "stats", ["nfl_player_id"], name: "index_stats_on_nfl_player_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",               null: false
