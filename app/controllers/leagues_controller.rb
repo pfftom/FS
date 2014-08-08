@@ -12,6 +12,10 @@ class LeaguesController < ApplicationController
     redirect_to :leagues
   end
 
+  def show
+    @league = League.find(params[:id])
+  end
+
   private
 
   def league_params

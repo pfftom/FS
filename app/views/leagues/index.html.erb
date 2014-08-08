@@ -1,5 +1,5 @@
 <% @leagues.each do |league| %>
   <div>
-    <%= league.name %> | <%= league.sport %>
+    <%= link_to league.name, [:new, league, :team] %>
   </div>
 <% end %>
