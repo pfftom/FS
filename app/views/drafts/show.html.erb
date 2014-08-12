@@ -1,0 +1,24 @@
+<div id="selection"></div>
+<div id="drafted-team">
+  <h4>My team</h4>
+  <% @draft_presenter.team(current_user).players.each do |player| %>
+    <li><%= player.position %> <%= player.name %></li>
+  <% end %>
+</div>
+<h2>QB</h2>
+<%= render @draft_presenter.qbs %>
+
+<h2>RB</h2>
+<%= render @draft_presenter.rbs %>
+
+<h2>WR</h2>
+<%= render @draft_presenter.wrs %>
+
+<h2>TE</h2>
+<%= render @draft_presenter.tes %>
+
+<h2>Def/ST</h2>
+<%= render @draft_presenter.defs %>
+
+<h2>K</h2>
+<%= render @draft_presenter.ks %>

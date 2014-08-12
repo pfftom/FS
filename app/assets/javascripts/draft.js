@@ -12,4 +12,14 @@ $(document).ready(function(){
       });
     });
   }
+
+  $(".draft-select").click(function(event){
+    event.preventDefault();
+    var element = $(event.target);
+    $.post(element.context.pathname, {
+      player_name: element.context.text
+    }).done(function(){
+      element.hide();
+    });
+  });
 });

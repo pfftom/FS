@@ -1,4 +1,5 @@
 class NFLPlayer < ActiveRecord::Base
+  STANDARD_RULE_POSITIONS = ["QB", "RB", "WR", "TE", "DEF", "K"]
   has_many :stats, dependent: :destroy
 
   validates :yahoo_key, presence: true, uniqueness: true
@@ -35,6 +36,10 @@ class NFLPlayer < ActiveRecord::Base
 
   def self.defenses
     where(position: "DEF")
+  end
+
+  def self.standard_rule_players
+    where(position: STANDARD_RULE_POSITIONS)
   end
 
   private
