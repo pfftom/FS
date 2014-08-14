@@ -11,17 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140808174111) do
+ActiveRecord::Schema.define(version: 20140814011747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "leagues", force: true do |t|
-    t.string   "name",       null: false
-    t.string   "sport",      null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",                       null: false
+    t.string   "sport",                      null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "drafted",    default: false
+    t.integer  "admin_id"
   end
+
+  add_index "leagues", ["admin_id"], name: "index_leagues_on_admin_id", using: :btree
 
   create_table "nfl_players", force: true do |t|
     t.string   "yahoo_key",     null: false

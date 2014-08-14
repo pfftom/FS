@@ -1,25 +1,56 @@
 $(document).ready(function(){
-  var currentPage = location.pathname;
-  var playersPath = "/players"
-  if(currentPage != playersPath){
-    $("#player-tabs").on("click", ".player-select", function(event){
-      var subPath = currentPage.substring(0, currentPage.length - playersPath.length);
-      var element = $(event.target);
-      $.post(subPath + "/rosters", {
-        player_name: element.parent().context.innerHTML
-      }).done(function(){
-        element.parent().hide();
-      });
-    });
-  }
+  var pusher = new Pusher(window.PUSHER_KEY);
+  var channel = pusher.subscribe(window.PUSHER_CHANNEL);
+  var draftingTeam = "";
+  var pick = 0;
+
+  channel.bind("new_selection", function(data){
+    $("#selection").prepend(data.selection);
+    $("#player-" + data.player_id.toString()).hide();
+  });
+
+  channel.bind("update_team", function(data){
+    $("#drafted-team").append("<li>" + data.position + " " + data.name + "</li>");
+  });
+
+  channel.bind("on_the_clock", function(data){
+    $("#current-picker").text(data.team);
+    draftingTeam = data.team;
+    pick = data.pick;
+  });
 
   $(".draft-select").click(function(event){
-    event.preventDefault();
-    var element = $(event.target);
-    $.post(element.context.pathname, {
-      player_name: element.context.text
-    }).done(function(){
-      element.hide();
-    });
+    if(draftingTeam == team.name){
+      event.preventDefault();
+      var element = $(event.target);
+      $.post(element.context.pathname, {
+        player_name: element.context.text
+      }).done(function(){
+        nextPick();
+        element.hide();
+      });
+    }
   });
+
+  $("#start-draft").click(function(event){
+    event.preventDefault();
+    startDraft();
+  });
+
+  function startDraft(){
+    sendPickToServer(pick);
+  }
+
+  function nextPick(){
+    pick += 1;
+    sendPickToServer(pick);
+  }
+
+  function sendPickToServer(pick){
+    $.ajax({
+      url: location.pathname,
+      type: "PATCH",
+      data: { pick: pick }
+    });
+  }
 });

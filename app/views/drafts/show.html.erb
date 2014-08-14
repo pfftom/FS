@@ -1,3 +1,7 @@
+<% if @league.admin == current_user %>
+  <%= button_to "start draft", "#", id: "start-draft" %>
+<% end %>
+<h2>On the clock: <span id="current-picker"></span></h2>
 <div id="selection"></div>
 <div id="drafted-team">
   <h4>My team</h4>
@@ -22,3 +26,8 @@
 
 <h2>K</h2>
 <%= render @draft_presenter.ks %>
+
+<%= javascript_tag do %>
+  var user = <%= raw current_user.to_json %>;
+  var team = <%= raw @team.to_json %>;
+<% end %>

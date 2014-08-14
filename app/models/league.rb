@@ -3,6 +3,7 @@ class League < ActiveRecord::Base
   has_many :teams, dependent: :destroy
   has_many :users, through: :teams
   has_many :players, through: :teams
+  belongs_to :admin, class_name: "User"
 
   validates :name, presence: true
   validates :sport, presence: true, inclusion: { in: SPORTS }
