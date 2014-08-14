@@ -1,6 +1,7 @@
 class Draft
   def initialize(league)
-    @league = league.update(drafted: true)
+    league.update(drafted: true)
+    @league = league
     @teams = league.teams.order("id ASC");
   end
 

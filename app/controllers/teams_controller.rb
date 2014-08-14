@@ -8,7 +8,7 @@ class TeamsController < ApplicationController
 
   def create
     @league.teams.create(team_params)
-    redirect_to league
+    redirect_to @league
   end
 
   private

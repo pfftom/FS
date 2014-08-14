@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140814011747) do
-
+ActiveRecord::Schema.define(version: 20140814140115) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +38,16 @@ ActiveRecord::Schema.define(version: 20140814011747) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
+
+  create_table "points", force: true do |t|
+    t.integer  "nfl_player_id",             null: false
+    t.float    "value",                     null: false
+    t.integer  "week",          default: 1, null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "points", ["nfl_player_id"], name: "index_points_on_nfl_player_id", using: :btree
 
   create_table "rosters", force: true do |t|
     t.integer "team_id",   null: false

@@ -22,6 +22,7 @@ $(document).ready(function(){
   $(".draft-select").click(function(event){
     if(draftingTeam == team.name){
       event.preventDefault();
+      draftingTeam = "";
       var element = $(event.target);
       $.post(element.context.pathname, {
         player_name: element.context.text

@@ -8,7 +8,7 @@ class LeaguesController < ApplicationController
   end
 
   def create
-    league = League.create(league_params)
+    league = League.create(league_params.merge(admin_id: current_user.id))
     redirect_to :leagues
   end
 
