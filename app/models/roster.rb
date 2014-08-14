@@ -4,4 +4,8 @@ class Roster < ActiveRecord::Base
 
   belongs_to :player, class_name: "NFLPlayer"
   belongs_to :team
+
+  def toggle_active
+    toggle(:active)
+  end
 end

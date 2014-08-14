@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140814140115) do
+ActiveRecord::Schema.define(version: 20140814193308) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,8 +51,9 @@ ActiveRecord::Schema.define(version: 20140814140115) do
   add_index "points", ["nfl_player_id"], name: "index_points_on_nfl_player_id", using: :btree
 
   create_table "rosters", force: true do |t|
-    t.integer "team_id",   null: false
-    t.integer "player_id", null: false
+    t.integer "team_id",                   null: false
+    t.integer "player_id",                 null: false
+    t.boolean "active",    default: false, null: false
   end
 
   add_index "rosters", ["player_id"], name: "index_rosters_on_player_id", using: :btree

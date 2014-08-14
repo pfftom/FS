@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :leagues, only: [:index, :new, :create, :show] do
     resource :draft, only: [:show, :create, :update]
     resources :players, only: [:index]
-    resources :teams, only: [:new, :create]
+    resources :teams, only: [:new, :create, :show, :update]
   end
   resources :players, only: [:index]
   root to: "dashboards#show"

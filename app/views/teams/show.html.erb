@@ -1,0 +1,29 @@
+<h2><%= @team.name %></h2>
+
+<div class="starters">
+  <h4>Active</h4>
+  <% @team.starters.each do |player| %>
+    <li>
+      <%= player.position %> <span><%= player.name %></span>
+      <%= link_to "bench", "#", class: "bench-player" %>
+    </li>
+  <% end %>
+</div>
+<div class="bench">
+  <h4>Bench</h4>
+  <% @team.bench.each do |player| %>
+    <li>
+      <%= player.position %> <span><%= player.name %></span>
+      <% if @team.under_starter_limit? %>
+        <% if @team.can_start?(player) %>
+          <%= link_to "activate", "#", class: "activate-player" %>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+</div>
+
+<%= javascript_tag do %>
+  var teamId = <%= @team.id %>;
+  var leagueId = <%= @team.league.id %>;
+<% end %>

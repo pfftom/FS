@@ -11,10 +11,24 @@ class TeamsController < ApplicationController
     redirect_to @league
   end
 
+  def show
+    @team = get_team
+  end
+
+  def update
+    player = NFLPlayer.find_by(name: params[:player])
+    Roster.find_by(team_id: get_team.id, player_id: player.id).toggle_active.save
+    render nothing: true, status: 200
+  end
+
   private
 
   def team_params
     params.require(:team).permit(:name).merge(user_id: current_user.id)
+  end
+
+  def get_team
+    @team ||= Team.find(params[:id])
   end
 
   def get_league
