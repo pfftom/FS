@@ -4,9 +4,15 @@ class League < ActiveRecord::Base
   has_many :users, through: :teams
   has_many :players, through: :teams
   belongs_to :admin, class_name: "User"
+  has_many :matchups, dependent: :destroy
+  has_many :standings, dependent: :destroy
 
   validates :name, presence: true
   validates :sport, presence: true, inclusion: { in: SPORTS }
+
+  def sorted_standings
+    standings.order("wins DESC")
+  end
 
   def has_user_team?(user)
     users.include?(user)
@@ -18,6 +24,12 @@ class League < ActiveRecord::Base
 
   def drafted_players
     players
+  end
+
+  def determine_results
+    matchups.where(week: CurrentWeek.week).each do |matchup|
+      matchup.calculate_result
+    end
   end
 
   def available_players

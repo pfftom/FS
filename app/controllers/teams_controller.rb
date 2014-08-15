@@ -7,7 +7,8 @@ class TeamsController < ApplicationController
   end
 
   def create
-    @league.teams.create(team_params)
+    team = @league.teams.create(team_params)
+    @league.standings.create(team: team)
     redirect_to @league
   end
 

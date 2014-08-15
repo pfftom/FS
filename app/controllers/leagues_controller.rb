@@ -14,6 +14,7 @@ class LeaguesController < ApplicationController
 
   def show
     @league = League.find(params[:id])
+    @standings = @league.sorted_standings
   end
 
   private

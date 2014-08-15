@@ -1,6 +1,7 @@
 class NFLPlayer < ActiveRecord::Base
   STANDARD_RULE_POSITIONS = ["QB", "RB", "WR", "TE", "DEF", "K"]
   has_many :stats, dependent: :destroy
+  has_many :points
 
   validates :yahoo_key, presence: true, uniqueness: true
   validates :yahoo_id, presence: true, uniqueness: true

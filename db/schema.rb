@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140814193308) do
+ActiveRecord::Schema.define(version: 20140819141456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,21 @@ ActiveRecord::Schema.define(version: 20140814193308) do
   end
 
   add_index "leagues", ["admin_id"], name: "index_leagues_on_admin_id", using: :btree
+
+  create_table "matchups", force: true do |t|
+    t.integer  "league_id",    null: false
+    t.integer  "week",         null: false
+    t.integer  "home_team_id", null: false
+    t.integer  "away_team_id", null: false
+    t.integer  "result"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "matchups", ["away_team_id"], name: "index_matchups_on_away_team_id", using: :btree
+  add_index "matchups", ["home_team_id", "away_team_id"], name: "index_matchups_on_home_team_id_and_away_team_id", unique: true, using: :btree
+  add_index "matchups", ["home_team_id"], name: "index_matchups_on_home_team_id", using: :btree
+  add_index "matchups", ["league_id"], name: "index_matchups_on_league_id", using: :btree
 
   create_table "nfl_players", force: true do |t|
     t.string   "yahoo_key",     null: false
@@ -58,6 +73,19 @@ ActiveRecord::Schema.define(version: 20140814193308) do
 
   add_index "rosters", ["player_id"], name: "index_rosters_on_player_id", using: :btree
   add_index "rosters", ["team_id"], name: "index_rosters_on_team_id", using: :btree
+
+  create_table "standings", force: true do |t|
+    t.integer  "league_id",              null: false
+    t.integer  "team_id",                null: false
+    t.integer  "wins",       default: 0, null: false
+    t.integer  "losses",     default: 0, null: false
+    t.integer  "ties",       default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "standings", ["league_id"], name: "index_standings_on_league_id", using: :btree
+  add_index "standings", ["team_id"], name: "index_standings_on_team_id", using: :btree
 
   create_table "stat_categories", force: true do |t|
     t.integer  "stat_id",    null: false
@@ -97,6 +125,10 @@ ActiveRecord::Schema.define(version: 20140814193308) do
     t.string   "user_name",           null: false
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+  end
+
+  create_table "weeks", force: true do |t|
+    t.integer "value", default: 1, null: false
   end
 
 end

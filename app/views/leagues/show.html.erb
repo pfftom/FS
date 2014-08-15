@@ -1,3 +1,9 @@
 <% @league.teams.each do |team| %>
   <div><%= link_to team.name, [@league, team] %> | <%= team.user.user_name %></div>
 <% end %>
+
+<table>
+  <%= render @standings %>
+</table>
+
+<%= CurrentWeek.week %>

@@ -1,7 +1,4 @@
 $(function(){
-  var patchUrl = "/leagues/" + leagueId.toString()
-    + "/teams/" + teamId.toString();
-
   $(".activate-player").click(function(event){
     toggleActive($(event.target).parents("li"));
   });
@@ -11,6 +8,8 @@ $(function(){
   });
 
   function toggleActive(element){
+    var patchUrl = "/leagues/" + leagueId.toString()
+      + "/teams/" + teamId.toString();
     var player = element.children("span")[0].innerText;
     $.ajax({
       url: patchUrl,

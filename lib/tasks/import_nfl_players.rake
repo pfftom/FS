@@ -7,4 +7,6 @@ task import_nfl_players: :environment do
       Stat.create(stat.merge(nfl_player_id: p.id))
     end
   end
+
+  Week.create
 end
