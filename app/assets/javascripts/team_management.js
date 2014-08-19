@@ -25,6 +25,12 @@ $(function(){
     sendToServer(patchUrl, player, "PATCH");
   });
 
+  $(".drop-player").click(function(event){
+    var url = "/teams/" + teamId.toString() + "/rosters";
+    var player = getPlayer(event);
+    sendToServer(url, player, "DELETE");
+  });
+
   function getPlayer(event){
     return $(event.target).parents("li").children("span")[0].innerText;
   }

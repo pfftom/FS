@@ -1,10 +1,19 @@
 class PlayersController < ApplicationController
   def index
-    @qbs = NFLPlayer.quarterbacks.page(params[:qbs])
-    @rbs = NFLPlayer.backs.page(params[:rbs])
-    @wrs = NFLPlayer.receivers.page(params[:wrs])
-    @tes = NFLPlayer.tight_ends.page(params[:tes])
-    @defs = NFLPlayer.defenses.page(params[:def])
-    @ks = NFLPlayer.kickers.page(params[:ks])
+    presenter = PlayersPresenter.new(league)
+    @qbs = presenter.qbs.page(params[:qbs])
+    @rbs = presenter.rbs.page(params[:rbs])
+    @wrs = presenter.wrs.page(params[:wrs])
+    @tes = presenter.tes.page(params[:tes])
+    @defs = presenter.defs.page(params[:def])
+    @ks = presenter.ks.page(params[:ks])
+    @league = league
+    @team = league.find_team(current_user)
+  end
+
+  private
+
+  def league
+    @league ||= League.find_by(id: params[:league_id])
   end
 end

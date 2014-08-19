@@ -1,9 +1,10 @@
-<tr>
+<tr id="<%= player.name %>">
   <td><%= image_tag player.avatar_url %></td>
-  <td class="player-select"><%= player.name %></td>
+  <td><%= player.name %></td>
   <td><%= player.position %></td>
   <td><%= player.team %></td>
   <% player.position_stats.each do |stat| %>
     <td><%= stat.value %></td>
   <% end %>
+  <td class="add-player-button"><%= button_to "Add to team", "#", class: "add-player" %></td>
 </tr>

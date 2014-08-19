@@ -45,3 +45,11 @@
   </div>
 </div>
 <%= link_to image_tag("yahoo.png"), "http://sports.yahoo.com/fantasy" %>
+
+<% if @league %>
+  <%= javascript_tag do %>
+    var hasDrafted = <%= @league.drafted? %>;
+    var teamId = <%= @team.id %>;
+    var isAtRosterLimit = <%= @team.players.count < 15 %>;
+  <% end %>
+<% end %>
