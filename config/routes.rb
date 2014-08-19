@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     resources :players, only: [:index]
     resources :teams, only: [:new, :create, :show, :update]
   end
+
+  resources :teams, only: [] do
+    resource :rosters, only: [:update, :destroy]
+  end
   resources :players, only: [:index]
   root to: "dashboards#show"
 end

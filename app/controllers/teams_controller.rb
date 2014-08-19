@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   before_action :check_for_user_team, only: [:new, :create]
+  before_action :ensure_user_owns_team, only: [:update]
 
   def new
     @league = get_league
@@ -39,6 +40,12 @@ class TeamsController < ApplicationController
   def check_for_user_team
     if get_league.has_user_team?(current_user)
       redirect_to get_league
+    end
+  end
+
+  def ensure_user_owns_team
+    unless current_user == get_team.user
+      render nothing: true
     end
   end
 end

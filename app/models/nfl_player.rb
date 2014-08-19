@@ -15,6 +15,10 @@ class NFLPlayer < ActiveRecord::Base
     stats.where(stat_id: relevant_stat_ids).order(:stat_id)
   end
 
+  def weekly_points(week)
+    points.find_by(week: week).value
+  end
+
   def self.quarterbacks
     where(position: "QB")
   end

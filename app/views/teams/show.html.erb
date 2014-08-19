@@ -1,21 +1,37 @@
 <h2><%= @team.name %></h2>
+<% if @team.user == current_user %>
+  <%= link_to "edit team", "#", id: "edit-team" %>
+<% end %>
+
+<% if @team.impact_player %>
+  <div class="impact">
+    <h4><%= @team.impact_player.name %></h4>
+  </div>
+<% end %>
 
 <div class="starters">
   <h4>Active</h4>
   <% @team.starters.each do |player| %>
     <li>
       <%= player.position %> <span><%= player.name %></span>
-      <%= link_to "bench", "#", class: "bench-player" %>
+      <% if @team.user == current_user %>
+        <% if player != @team.impact_player  && player.position != "QB" %>
+          <%= link_to "Impact", "#", class: "impact-player" %>
+        <% end %>
+        <%= link_to "bench", "#", class: "bench-player" %>
+      <% end %>
     </li>
   <% end %>
 </div>
+
 <div class="bench">
   <h4>Bench</h4>
   <% @team.bench.each do |player| %>
     <li>
       <%= player.position %> <span><%= player.name %></span>
+      <%= link_to "drop", "#", class: "drop-player" %>
       <% if @team.under_starter_limit? %>
-        <% if @team.can_start?(player) %>
+        <% if @team.can_start?(player) && @team.user == current_user %>
           <%= link_to "activate", "#", class: "activate-player" %>
         <% end %>
       <% end %>

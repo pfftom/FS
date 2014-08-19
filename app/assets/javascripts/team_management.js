@@ -1,20 +1,39 @@
 $(function(){
   $(".activate-player").click(function(event){
-    toggleActive($(event.target).parents("li"));
+    toggleActive(event);
   });
 
   $(".bench-player").click(function(event){
-    toggleActive($(event.target).parents("li"));
+    toggleActive(event);
   });
 
-  function toggleActive(element){
+  function toggleActive(event){
     var patchUrl = "/leagues/" + leagueId.toString()
       + "/teams/" + teamId.toString();
-    var player = element.children("span")[0].innerText;
+    var player = getPlayer(event);
+    sendToServer(patchUrl, player, "PATCH");
+  }
+
+  $("#edit-team").click(function(event){
+    $(".drop-player").toggle();
+    $(".impact-player").toggle();
+  });
+
+  $(".impact-player").click(function(event){
+    var patchUrl = "/teams/" + teamId.toString() + "/rosters";
+    var player = getPlayer(event);
+    sendToServer(patchUrl, player, "PATCH");
+  });
+
+  function getPlayer(event){
+    return $(event.target).parents("li").children("span")[0].innerText;
+  }
+
+  function sendToServer(url, player, type){
     $.ajax({
-      url: patchUrl,
+      url: url,
       data: { player: player },
-      type: "PATCH"
+      type: type
     }).done(function(){
       location.reload();
     });
