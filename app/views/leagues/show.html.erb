@@ -6,4 +6,6 @@
   <%= render @standings %>
 </table>
 
-<%= CurrentWeek.week %>
+<div class="transactions">
+  <%= render @league.newest_first_transactions %>
+</div>

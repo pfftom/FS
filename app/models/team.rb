@@ -9,6 +9,7 @@ class Team < ActiveRecord::Base
   has_one :standing, dependent: :destroy
   has_one :impact_roster, -> { where(impact: true) }, class_name: "Roster"
   has_one :impact_player, through: :impact_roster, source: :player
+  has_many :player_transactions, dependent: :destroy
   
   validates :name, presence: true
   validates :user, presence: true

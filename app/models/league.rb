@@ -6,9 +6,14 @@ class League < ActiveRecord::Base
   belongs_to :admin, class_name: "User"
   has_many :matchups, dependent: :destroy
   has_many :standings, dependent: :destroy
+  has_many :player_transactions, dependent: :destroy
 
   validates :name, presence: true
   validates :sport, presence: true, inclusion: { in: SPORTS }
+
+  def newest_first_transactions
+    player_transactions.order("created_at DESC")
+  end
 
   def sorted_standings
     standings.order("wins DESC")

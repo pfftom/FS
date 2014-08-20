@@ -6,6 +6,11 @@ class RostersController < ApplicationController
   def create
     player = NFLPlayer.find_by(name: params[:player])
     team.rosters.create(player: player)
+    team.player_transactions.create(
+      league: team.league,
+      player: player.name,
+      action: "added"
+    )
     render nothing: true, status: 200
   end
 
@@ -17,6 +22,11 @@ class RostersController < ApplicationController
 
   def destroy
     Roster.find_by(team_id: team.id, player_id: player.id).destroy
+    team.player_transactions.create(
+      league: team.league,
+      player: player.name,
+      action: "dropped"
+    )
     render nothing: true
   end
 
