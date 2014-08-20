@@ -11,7 +11,7 @@ class Team < ActiveRecord::Base
   has_one :impact_player, through: :impact_roster, source: :player
   has_many :player_transactions, dependent: :destroy
   
-  validates :name, presence: true
+  validates :name, presence: true, format: { with: /[A-Za-z ]/ }
   validates :user, presence: true
   validates :league, presence: true
 

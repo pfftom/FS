@@ -1,8 +1,9 @@
 $(document).ready(function(){
   var pusher = new Pusher(window.PUSHER_KEY);
   var channel = pusher.subscribe(window.PUSHER_CHANNEL);
-  var draftingTeam = "";
-  var pick = 0;
+  var draftingTeam = currentTeam;
+  var pick = currentPick;
+  $("#current-picker").text(draftingTeam);
 
   channel.bind("new_selection", function(data){
     $("#selection").prepend(data.selection);

@@ -7,6 +7,7 @@ class League < ActiveRecord::Base
   has_many :matchups, dependent: :destroy
   has_many :standings, dependent: :destroy
   has_many :player_transactions, dependent: :destroy
+  has_one :current_draft_pick, dependent: :destroy
 
   validates :name, presence: true
   validates :sport, presence: true, inclusion: { in: SPORTS }

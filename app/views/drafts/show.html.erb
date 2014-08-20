@@ -30,4 +30,11 @@
 <%= javascript_tag do %>
   var user = <%= raw current_user.to_json %>;
   var team = <%= raw @team.to_json %>;
+  <% if @league.current_draft_pick %>
+    var currentPick = <%= @league.current_draft_pick.pick_index %>;
+    var currentTeam = "<%= @league.current_draft_pick.team %>";
+  <% else %>
+    var currentPick = 0;
+    var currentTeam = "";
+  <% end %>
 <% end %>
