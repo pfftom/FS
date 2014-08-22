@@ -38,17 +38,16 @@ ActiveRecord::Schema.define(version: 20140820185051) do
   add_index "leagues", ["admin_id"], name: "index_leagues_on_admin_id", using: :btree
 
   create_table "matchups", force: true do |t|
-    t.integer  "league_id",    null: false
-    t.integer  "week",         null: false
-    t.integer  "home_team_id", null: false
-    t.integer  "away_team_id", null: false
-    t.integer  "result"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "league_id",       null: false
+    t.integer  "week",            null: false
+    t.integer  "home_team_id",    null: false
+    t.integer  "away_team_id",    null: false
+    t.integer  "winning_team_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "matchups", ["away_team_id"], name: "index_matchups_on_away_team_id", using: :btree
-  add_index "matchups", ["home_team_id", "away_team_id"], name: "index_matchups_on_home_team_id_and_away_team_id", unique: true, using: :btree
   add_index "matchups", ["home_team_id"], name: "index_matchups_on_home_team_id", using: :btree
   add_index "matchups", ["league_id"], name: "index_matchups_on_league_id", using: :btree
 
@@ -120,6 +119,7 @@ ActiveRecord::Schema.define(version: 20140820185051) do
   create_table "stats", force: true do |t|
     t.integer "value",         null: false
     t.integer "stat_id",       null: false
+    t.integer "week",          null: false
     t.string  "name",          null: false
     t.integer "nfl_player_id", null: false
   end

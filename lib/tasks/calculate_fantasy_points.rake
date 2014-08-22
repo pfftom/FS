@@ -2,7 +2,7 @@ desc "calculate fantasy points for each player"
 task calculate_fantasy_points: :environment do
   NFLPlayer.all.each do |player|
     points = 0
-    player.stats.each do |stat|
+    player.stats.where(week: CurrentWeek.week).each do |stat|
       multiplier = PositionStats::STAT_VALUES[stat.stat_id] || 0
       points += stat.value * multiplier
     end

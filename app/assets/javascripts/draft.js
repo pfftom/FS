@@ -1,8 +1,12 @@
 $(document).ready(function(){
   var pusher = new Pusher(window.PUSHER_KEY);
   var channel = pusher.subscribe(window.PUSHER_CHANNEL);
-  var draftingTeam = currentTeam;
-  var pick = currentPick;
+  var draftingTeam;
+  var pick;
+  if(typeof currentTeam != "undefined" && typeof currentPick != "undefined"){
+    var draftingTeam = currentTeam;
+    var pick = currentPick;
+  }
   $("#current-picker").text(draftingTeam);
 
   channel.bind("new_selection", function(data){

@@ -1,6 +1,6 @@
 class NFLImport
   BASE_URL = "http://fantasysports.yahooapis.com/fantasy/v2"
-  PLAYERS_URL = "#{BASE_URL}/games;game_keys=nfl/players"
+  PLAYERS_URL = "#{BASE_URL}/games;game_keys=273/players"
   MAX_PLAYERS = 1800
 
   def initialize(data_import)
@@ -15,7 +15,7 @@ class NFLImport
 
   def get_player_xml
     (0..MAX_PLAYERS).step(25).map do |i|
-      player_group_url = "#{PLAYERS_URL};start=#{i};count=25/stats"
+      player_group_url = "#{PLAYERS_URL};start=#{i};count=25/stats;type=week;week=#{CurrentWeek.week}"
       @data_import.get_data(player_group_url)
     end
   end

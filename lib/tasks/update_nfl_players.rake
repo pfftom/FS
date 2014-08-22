@@ -10,11 +10,11 @@ task update_nfl_players: :environment do
     end
 
     player[1].each do |stat|
-      statistic = Stat.find_by(stat_id: stat[stat_id], nfl_player_id: nfl_player.id)
+      statistic = Stat.find_by(stat_id: stat[stat_id], nfl_player_id: nfl_player.id, week: CurrentWeek.week)
       if statistic
         statistic.update(stat)
       else
-        Stat.create(stat.merge(nfl_player_id: nfl_player.id))
+        Stat.create(stat.merge(nfl_player_id: nfl_player.id, week: CurrentWeek.week))
       end
     end
   end
