@@ -15,4 +15,3 @@ gem 'paperclip'
 gem 'dotenv-rails', group: :development
 gem 'kaminari'
 gem 'pusher'
-gem 'tzinfo-data'
